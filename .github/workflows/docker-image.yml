@@ -1,0 +1,18 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ multiarch ]
+  pull_request:
+    branches: [ multiarch ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build mbed-os-env Docker image
+      run: docker build mbed-os-env --file Dockerfile --tag pan2048/mbed-os-env:$(date +%s)
