@@ -42,9 +42,12 @@ RUN wget https://github.com/ARMmbed/mbed-os/raw/master/requirements.txt && \
 # ------------------------------------------------------------------------------
 # Install arm-none-eabi-gcc
 WORKDIR /root/
-RUN wget -q https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2019q4/RC2.1/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2 && \
-    tar -xjf gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2 && \
-    rm gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2
+RUN [ "$(uname -m)" = "aarch64" ] && \
+        TARBALL="gcc-arm-none-eabi-9-2019-q4-major-aarch64-linux.tar.bz2" || \
+        TARBALL="gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2" && \
+    wget -q https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2019q4/RC2.1/${TARBALL} && \
+    tar -xjf ${TARBALL} && \
+    rm ${TARBALL}.tar.bz2
 ENV PATH="/root/gcc-arm-none-eabi-9-2019-q4-major/bin:${PATH}"
 
 
