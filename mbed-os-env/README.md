@@ -2,10 +2,11 @@
 
 This docker image is the official mbed-OS development environment.
 * It is based on ubuntu 20.04
-* Python and cmake are installed
+* Python 3 is installed
 * arm-none-eabi-gcc toolchain is installed
+* pyOCD is installed
 * Latest released version of mbed-cli and GreenTea are installed
-* All other mbed-OS dependency tools are installed.
+* All other mbed-OS dependency tools are installed
 
 # How to use docker image:
 
@@ -24,7 +25,7 @@ Then you will have the container with mbed OS development environment.
 you should be able to compile mbed commands/examples as recommenced in mbed documentations
 e.g.
 ```bash
-mbed import mbed-os-example-blinky
+mbed import --no-requirements mbed-os-example-blinky
 cd mbed-os-example-blinky
 mbed compile -m <TARGET> -t GCC_ARM
 ```
@@ -47,3 +48,15 @@ cd mbed-os
 mbed test -t GCC_ARM -m <target> 
 ```
 
+# Development
+
+## Build docker image locally
+
+```bash
+./docker-build.sh
+```
+
+## Run docker image locally
+```bash
+./docker-run.sh
+```
