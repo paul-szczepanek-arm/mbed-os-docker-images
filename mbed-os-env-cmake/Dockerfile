@@ -23,7 +23,7 @@ RUN apt-get -y update && \
     mercurial \
     ninja-build \
     libssl-dev && \
-    wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
+    wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && \
     add-apt-repository 'deb https://apt.kitware.com/ubuntu/ focal main' && \
     apt-get -y update && \
     apt-get -y install cmake && \
@@ -32,7 +32,7 @@ RUN apt-get -y update && \
 
 # Set up mbed environment
 WORKDIR /root/
-RUN wget https://github.com/ARMmbed/mbed-os/raw/latest/requirements.txt && \
+RUN wget https://github.com/ARMmbed/mbed-os/raw/latest/tools/cmake/requirements.txt && \
     pip3 install -r requirements.txt
 
 # ------------------------------------------------------------------------------
