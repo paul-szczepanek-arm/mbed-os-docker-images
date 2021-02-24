@@ -38,7 +38,6 @@ RUN wget https://github.com/ARMmbed/mbed-os/raw/latest/tools/cmake/requirements.
 # ------------------------------------------------------------------------------
 # Install Python modules (which are not included in requirements.txt)
 RUN pip3 install \
-    'pyyaml>=5.1,<6.0' \
     mbed-tools \
     pyocd
 
