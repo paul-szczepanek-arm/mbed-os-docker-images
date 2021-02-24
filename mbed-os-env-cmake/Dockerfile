@@ -47,7 +47,7 @@ RUN [ "$(uname -m)" = "aarch64" ] && \
         TARBALL="gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2" && \
     wget -q https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2019q4/RC2.1/${TARBALL} && \
     tar -xjf ${TARBALL} && \
-    rm ${TARBALL}.tar.bz2
+    rm ${TARBALL}
 ENV PATH="/root/gcc-arm-none-eabi-9-2019-q4-major/bin:${PATH}"
 
 
