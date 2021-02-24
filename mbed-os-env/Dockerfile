@@ -9,8 +9,8 @@ ARG WORKDIR=/root
 # ------------------------------------------------------------------------------
 # Install tools via apt
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt -y update && \
-    apt -y install git \
+RUN apt-get -y update && \
+    apt-get -y install git \
     wget \
     python3 \
     python3-dev \
@@ -21,26 +21,20 @@ RUN apt -y update && \
     build-essential \
     astyle \
     mercurial \
-    ninja-build \
     libssl-dev \
-    && apt clean && rm -rf /var/lib/apt/lists
-
-
-# ------------------------------------------------------------------------------
-# Install Python modules (which are not included in requirements.txt)
-RUN pip3 install -U \
-    mbed-cli \
-    mbed-tools
+    && apt-get clean && rm -rf /var/lib/apt/lists
 
 # Set up mbed environment
 WORKDIR /root/
-RUN wget https://github.com/ARMmbed/mbed-os/raw/master/requirements.txt && \
+RUN wget https://github.com/ARMmbed/mbed-os/raw/latest/requirements.txt && \
     pip3 install -r requirements.txt
 
 # ------------------------------------------------------------------------------
-# Install updated cmake - refer https://cmake.org/install/ 
-COPY cmake-3.19.0-rc3-Linux-x86_64.sh /tmp
-RUN sh /tmp/cmake-3.19.0-rc3-Linux-x86_64.sh --exclude-subdir --prefix=/usr/local
+# Install Python modules (which are not included in requirements.txt)
+RUN pip3 install \
+    'pyyaml>=5.1,<6.0' \
+    mbed-cli \
+    pyocd
 
 # ------------------------------------------------------------------------------
 # Install arm-none-eabi-gcc
@@ -57,7 +51,8 @@ RUN python3 --version | tee env_settings && \
     arm-none-eabi-gcc --version | tee -a env_settings && \
     (echo -n 'mbed-cli ' && mbed --version) | tee -a env_settings && \
     (echo -n 'mbed-greentea ' && mbedgt --version) | tee -a env_settings && \
-    (echo -n 'mbed-host-tests ' && mbedhtrun --version) | tee -a env_settings
+    (echo -n 'mbed-host-tests ' && mbedhtrun --version) | tee -a env_settings && \
+    (echo -n 'pyocd ' && pyocd --version) | tee -a env_settings
 
 WORKDIR /root
 
