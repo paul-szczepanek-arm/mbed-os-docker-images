@@ -24,6 +24,7 @@ RUN apt -y update && \
     mercurial \
     ninja-build \
     libssl-dev \
+    cargo \
     && apt clean && rm -rf /var/lib/apt/lists
 
 
