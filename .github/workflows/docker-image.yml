@@ -25,7 +25,8 @@ jobs:
       run: echo ${{ steps.buildx.outputs.platforms }}
 
     - name: Build mbed-os-env-cmake Docker image
-      run: docker buildx build \
+      run: |
+        docker buildx build \
           --platform linux/386,linux/amd64,linux/arm/v7,linux/arm64 \
           --output "type=image,push=false" \
           --file mbed-os-env-cmake/Dockerfile \
