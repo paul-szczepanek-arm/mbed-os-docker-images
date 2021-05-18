@@ -24,8 +24,16 @@ RUN apt -y update && \
     mercurial \
     ninja-build \
     libssl-dev \
-    cargo \
-    && apt clean && rm -rf /var/lib/apt/lists
+    cargo
+    
+# ------------------------------------------------------------------------------
+# Add lava requirements
+RUN apt install -y screen bluez bluetooth libxslt-dev libxml2-dev time curl valgrind gcovr
+# need particular pyocd for flashing to work
+RUN pip3 install pyocd==0.29.0
+RUN pip3 install virtualenv
+
+RUN apt clean && rm -rf /var/lib/apt/lists
 
 # Cmake (Mbed OS requires >=3.19.0-rc3 version which is not available in Ubuntu 20.04 repository)
 RUN set -x \
@@ -72,13 +80,6 @@ RUN set -x \
 # Configure environment variables
 ENV MBED_GCC_ARM_PATH=/opt/mbed-os-toolchain/gcc-arm-none-eabi-9-2019-q4-major/bin/
 ENV PATH="${PATH}:${MBED_GCC_ARM_PATH}"
-
-# ------------------------------------------------------------------------------
-# Add lava requirements
-RUN apt install -y screen bluez bluetooth libxslt-dev libxml2-dev time curl valgrind gcovr
-# need particular pyocd for flashing to work
-RUN pip3 install pyocd==0.29.0
-RUN pip3 install virtualenv
 
 # ------------------------------------------------------------------------------
 # Display and save environment settings
