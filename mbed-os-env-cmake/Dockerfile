@@ -74,6 +74,13 @@ ENV MBED_GCC_ARM_PATH=/opt/mbed-os-toolchain/gcc-arm-none-eabi-9-2019-q4-major/b
 ENV PATH="${PATH}:${MBED_GCC_ARM_PATH}"
 
 # ------------------------------------------------------------------------------
+# Add lava requirements
+RUN apt install -y screen bluez bluetooth libxslt-dev libxml2-dev time curl valgrind gcovr
+# need particular pyocd for flashing to work
+RUN pip3 install pyocd==0.29.0
+RUN pip3 install virtualenv
+
+# ------------------------------------------------------------------------------
 # Display and save environment settings
 RUN python3 --version | tee env_settings && \
     arm-none-eabi-gcc --version | tee -a env_settings && \
