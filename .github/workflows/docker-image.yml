@@ -33,7 +33,7 @@ jobs:
           --platform linux/amd64,linux/arm64 \
           --output "type=image,push=false" \
           --file mbed-os-env-cmake/Dockerfile \
-          --tag pan2048/mbed-os-env-cmake:latest \
+          --tag mbedoslava/mbed-os-env-cmake:latest \
           --push \
           ./mbed-os-env-cmake
 
