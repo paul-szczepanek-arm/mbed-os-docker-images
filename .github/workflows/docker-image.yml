@@ -38,4 +38,4 @@ jobs:
           ./mbed-os-env-cmake
 
     - name: Inspect image
-      run: docker buildx imagetools inspect pan2048/mbed-os-env-cmake:latest
+      run: docker buildx imagetools inspect mbedoslava/mbed-os-env-cmake:latest
